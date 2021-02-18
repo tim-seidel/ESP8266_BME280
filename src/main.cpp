@@ -8,11 +8,11 @@
 
 #include "../include/config.h"
 
-#define SENSOR_RATE 5000    //Local display update rate
-#define UPDATE_RATE 60000   //Mqtt update rate
-#define MAX_PAYLOAD 50
+#define SENSOR_RATE 5000  // Local display update rate
+#define UPDATE_RATE 60000 // Mqtt update rate
+#define MAX_PAYLOAD 60    // Mqtt payload length
 
-#define DEBUG false //SERIAL PRINT
+#define DEBUG false       // Serial print
 
 Adafruit_BME280 bmeSensor;
 Adafruit_SSD1306 display = Adafruit_SSD1306(128, 64, &Wire);
@@ -58,7 +58,6 @@ void println(String msg)
 void toString(SensorData &data, char *buffer)
 {
   sprintf(buffer, "{\"temp\":%.2f,\"hum\":%.2f,\"press\":%.2f}", data.temp, data.hum, data.pressure);
-  //sprintf(buffer, "%.2f;%.2f;%.2f", data.temp, data.hum, data.pressure);
 }
 
 void callback(char *topic, byte *payload, unsigned int length)
