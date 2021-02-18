@@ -111,9 +111,9 @@ void setup_display()
   display.display();
 }
 
-void setup_wifi()
+void setup_wifi(bool isReconnect = false)
 {
-  display_msg("Wifi setup");
+  display_msg(isReconnect ? "Wifi\nreconnecting..." : "Wifi setup");
   print("Connecting to ");
   print(ssid);
   print(" ");
@@ -130,7 +130,10 @@ void setup_wifi()
   print("\nWiFi connected. IP address: ");
   println(WiFi.localIP().toString());
   display_msg("Connected:\n" + WiFi.localIP().toString());
+}
 
+void setup_mqtt()
+{
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
 }
@@ -173,6 +176,7 @@ void setup()
   if (withWifi)
   {
     setup_wifi();
+    setup_mqtt();
   }
   else
   {
@@ -244,6 +248,12 @@ void loop()
 
     delay(SENSOR_RATE);
     display_pressure(current, hasWifi);
+  }
+
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    println("Reconnecting to WiFi...");
+    setup_wifi(true);
   }
 
   if (withWifi)
