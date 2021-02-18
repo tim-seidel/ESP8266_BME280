@@ -36,7 +36,7 @@ char msg[MAX_PAYLOAD];
 struct SensorData
 {
   float temp;
-  float hum;
+  float humidity;
   float pressure;
 };
 SensorData current;
@@ -57,7 +57,7 @@ void println(String msg)
 
 void toString(SensorData &data, char *buffer)
 {
-  sprintf(buffer, "{\"temp\":%.2f,\"hum\":%.2f,\"press\":%.2f}", data.temp, data.hum, data.pressure);
+  sprintf(buffer, "{\"temp\":%.2f,\"humidity\":%.2f,\"pressure\":%.2f}", data.temp, data.humidity, data.pressure);
 }
 
 void callback(char *topic, byte *payload, unsigned int length)
@@ -98,7 +98,7 @@ void setup_bme()
       Adafruit_BME280::FILTER_OFF);
 
   current.temp = bmeSensor.readTemperature();
-  current.hum = bmeSensor.readHumidity();
+  current.humidity = bmeSensor.readHumidity();
   current.pressure = bmeSensor.readPressure() / 100.0;
 }
 
@@ -200,7 +200,7 @@ void display_hum(SensorData &data, bool hasWifi)
   display.println("Hum [%]:");
   display.println(hasWifi ? "---" : "--");
   display.setTextSize(3);
-  display.println(data.hum);
+  display.println(data.humidity);
   display.display();
 }
 
@@ -225,7 +225,7 @@ void read_data()
 {
   bmeSensor.takeForcedMeasurement();
   current.temp = bmeSensor.readTemperature();
-  current.hum = bmeSensor.readHumidity();
+  current.humidity = bmeSensor.readHumidity();
   current.pressure = bmeSensor.readPressure() / 100.0;
 }
 
