@@ -149,7 +149,7 @@ bool setup_ask_for_wifi()
   uint16_t poll_time = 50;
   float remaining = decision_time / 1000.0;
 
-  display_msg("WLAN an?");
+  display_msg("Use WiFi?");
   for (uint16_t i = 0; i < decision_time / poll_time; i++)
   {
     if (isButtonPressed())
@@ -158,7 +158,7 @@ bool setup_ask_for_wifi()
     }
     delay(poll_time);
     remaining = (decision_time - poll_time * (i + 1)) / 1000.0;
-    display_msg("WLAN an?\nStart in:\n" + String(remaining));
+    display_msg("Enable WiFi?\Press button.\nStarting in:\n" + String(remaining));
   }
   return false;
 }
@@ -224,7 +224,7 @@ void setup()
   }
   else
   {
-    display_msg("Starte...\nOhne WLAN");
+    display_msg("Starting...\nNo WiFi");
   }
 
   delay(SENSOR_RATE);
