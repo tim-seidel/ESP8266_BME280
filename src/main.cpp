@@ -250,14 +250,14 @@ void loop()
     display_pressure(current, hasWifi);
   }
 
-  if (WiFi.status() != WL_CONNECTED)
-  {
-    println("Reconnecting to WiFi...");
-    setup_wifi(true);
-  }
-
   if (withWifi)
   {
+    if (WiFi.status() != WL_CONNECTED)
+    {
+      println("Reconnecting to WiFi...");
+      setup_wifi(true);
+    }
+
     if (client.connected())
     {
       client.loop();
