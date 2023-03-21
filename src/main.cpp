@@ -186,34 +186,31 @@ void setup()
   delay(SENSOR_RATE);
 }
 
-void display_temp(SensorData &data, bool hasWifi)
+void display_temp(SensorData &data)
 {
   reset_display();
   display.setTextSize(2);
   display.println("Temp [C]:");
-  display.println(hasWifi ? "---" : "--");
   display.setTextSize(3);
   display.println(data.temp);
   display.display();
 }
 
-void display_hum(SensorData &data, bool hasWifi)
+void display_hum(SensorData &data)
 {
   reset_display();
   display.setTextSize(2);
   display.println("Hum [%]:");
-  display.println(hasWifi ? "---" : "--");
   display.setTextSize(3);
   display.println(data.humidity);
   display.display();
 }
 
-void display_pressure(SensorData &data, bool hasWifi)
+void display_pressure(SensorData &data)
 {
   reset_display();
   display.setTextSize(2);
   display.println("Pre [hPa]:");
-  display.println(hasWifi ? "---" : "--");
   display.setTextSize(3);
   display.println(data.pressure);
   display.display();
@@ -237,17 +234,16 @@ void loop()
 {
   for (int i = 0; i < UPDATE_RATE / (SENSOR_RATE * 3); i++)
   {
-    bool hasWifi = !WiFi.isConnected();
     read_data();
 
     delay(SENSOR_RATE);
-    display_temp(current, hasWifi);
+    display_temp(current);
 
     delay(SENSOR_RATE);
-    display_hum(current, hasWifi);
+    display_hum(current);
 
     delay(SENSOR_RATE);
-    display_pressure(current, hasWifi);
+    display_pressure(current);
   }
 
   if (withWifi)
