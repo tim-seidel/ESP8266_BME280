@@ -163,29 +163,6 @@ bool setup_ask_for_wifi()
   return false;
 }
 
-void setup()
-{
-  Serial.begin(9600);
-  Wire.begin();
-
-  setup_button();
-  setup_bme();
-  setup_display();
-
-  withWifi = setup_ask_for_wifi();
-  if (withWifi)
-  {
-    setup_wifi();
-    setup_mqtt();
-  }
-  else
-  {
-    display_msg("Starte...\nOhne WLAN");
-  }
-
-  delay(SENSOR_RATE);
-}
-
 void display_temp(SensorData &data)
 {
   reset_display();
@@ -228,6 +205,29 @@ void read_data()
   current.temp = bmeSensor.readTemperature();
   current.humidity = bmeSensor.readHumidity();
   current.pressure = bmeSensor.readPressure() / 100.0;
+}
+
+void setup()
+{
+  Serial.begin(9600);
+  Wire.begin();
+
+  setup_button();
+  setup_bme();
+  setup_display();
+
+  withWifi = setup_ask_for_wifi();
+  if (withWifi)
+  {
+    setup_wifi();
+    setup_mqtt();
+  }
+  else
+  {
+    display_msg("Starte...\nOhne WLAN");
+  }
+
+  delay(SENSOR_RATE);
 }
 
 void loop()
