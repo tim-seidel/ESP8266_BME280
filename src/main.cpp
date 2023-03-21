@@ -8,8 +8,8 @@
 
 #include "../include/config.h"
 
-#define SENSOR_RATE 5000  // Local display update rate
-#define UPDATE_RATE 60000 // Mqtt update rate
+#define SENSOR_RATE 5000  // Local display update rate in ms
+#define UPDATE_RATE 60000 // Mqtt update rate in ms
 #define MAX_PAYLOAD 60    // Mqtt payload length
 
 #define DEBUG false       // Serial print
